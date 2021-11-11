@@ -30,24 +30,37 @@ export function Homepage() {
   }
 
   return (
-    <div className={`bg-${sound} bg-center bg-no-repeat bg-cover fixed top-0 left-0 h-full w-full`}>
-      <Navbar />
-      <div className="flex justify-center items-center h-full">
-        <div className="px-6 py-5 sm:px-10 sm:py-8 mx-5 bg-white bg-opacity-75 nes-container text-center">
-          <button
-            type="button"
-            className="nes-btn is-primary align-center mb-6"
-            onClick={() => setPlaying(!playing)}
-          >
-            <img alt={playing ? 'Pause' : 'Play'} src={playing ? pause : play} className="h-12" />
-          </button>
-          <h1 className="text-3xl uppercase mb-3">Sounds of the world</h1>
-          <Volume value={volume} onChange={handleVolumeChange} />
-          <Sounds selectedSound={sound} onChange={handleSoundChange} />
-        </div>
-      </div>
+    <>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        key={sound}
+      >
+        <source src={`../backgrounds/${sound}.mp4`} type="video/mp4" />
+      </video>
 
-      <ReactHowler src={`../sounds/${sound}.mp3`} html5 loop volume={volume} playing={playing} />
-    </div>
+      <div className="fixed top-0 left-0 h-full w-full">
+        <Navbar />
+        <div className="flex justify-center items-center h-full">
+          <div className="px-6 py-5 sm:px-10 sm:py-8 mx-5 bg-white bg-opacity-75 nes-container text-center">
+            <button
+              type="button"
+              className="nes-btn is-primary align-center mb-6"
+              onClick={() => setPlaying(!playing)}
+            >
+              <img alt={playing ? 'Pause' : 'Play'} src={playing ? pause : play} className="h-12" />
+            </button>
+            <h1 className="text-3xl uppercase mb-3">Sounds of the world</h1>
+            <Volume value={volume} onChange={handleVolumeChange} />
+            <Sounds selectedSound={sound} onChange={handleSoundChange} />
+          </div>
+        </div>
+
+        <ReactHowler src={`../sounds/${sound}.mp3`} html5 loop volume={volume} playing={playing} />
+      </div>
+    </>
   );
 }
