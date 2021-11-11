@@ -12,6 +12,42 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.bg-city {
+  background-image: url('assets/images/backgrounds/city.gif');
+}
+
+.bg-beach {
+  background-image: url('assets/images/backgrounds/beach.gif');
+}
+
+.bg-river {
+  background-image: url('assets/images/backgrounds/river.gif');
+}
+
+.bg-rain {
+  background-image: url('assets/images/backgrounds/rain.gif');
+}
+
+.bg-space {
+  background-image: url('assets/images/backgrounds/space.gif');
+}
+
+.bg-forest {
+  background-image: url('assets/images/backgrounds/forest.gif');
+}
+
+.bg-thunder {
+  background-image: url('assets/images/backgrounds/thunder.gif');
+}
+
+.bg-fire {
+  background-image: url('assets/images/backgrounds/fire.gif');
+}
+
+.bg-desert {
+  background-image: url('assets/images/backgrounds/desert.gif');
+}
+
 .nes-input,
 .nes-textarea,
 .nes-btn {
