@@ -2,8 +2,9 @@ import play from 'assets/images/controls/play.png';
 import pause from 'assets/images/controls/pause.png';
 import { useState } from 'react';
 import ReactHowler from 'react-howler';
-import { DEFAULT_SOUND, DEFAULT_VOLUME } from 'utils/constants';
+import { DEFAULT_SOUND, DEFAULT_VOLUME, sounds } from 'utils/constants';
 import { Navbar } from 'components/Navbar';
+import Button from 'components/Button';
 import { Sounds } from './Sounds';
 import { Volume } from './Volume';
 
@@ -22,37 +23,45 @@ export function Homepage() {
   }
 
   function handleSoundChange(selectedSound: string) {
-    setSound(selectedSound);
+    if (selectedSound !== sound) {
+      setSound(selectedSound);
 
-    if (!playing) {
-      setPlaying(true);
+      if (!playing) {
+        setPlaying(true);
+      }
     }
   }
 
   return (
     <>
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        key={sound}
-      >
-        <source src={`../backgrounds/${sound}.mp4`} type="video/mp4" />
-      </video>
+      {/* PRE-RENDER ALL VIDEOS TO AVOID WHITE SCREEN DURING LOADING */}
+      {sounds.map((_sound) => (
+        <video
+          key={_sound.value}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          style={{
+            display: _sound.value === sound ? 'unset' : 'none',
+          }}
+        >
+          <source src={`../backgrounds/${_sound.value}.mp4`} type="video/mp4" />
+        </video>
+      ))}
 
       <div className="fixed top-0 left-0 h-full w-full">
         <Navbar />
         <div className="flex justify-center items-center h-full">
           <div className="px-6 py-5 sm:px-10 sm:py-8 mx-5 bg-white bg-opacity-75 nes-container text-center">
-            <button
-              type="button"
-              className="nes-btn is-primary align-center mb-6"
+            <Button
+              variant="primary"
+              className="align-center mb-6"
               onClick={() => setPlaying(!playing)}
             >
               <img alt={playing ? 'Pause' : 'Play'} src={playing ? pause : play} className="h-12" />
-            </button>
+            </Button>
             <h1 className="text-3xl uppercase mb-3">Sounds of the world</h1>
             <Volume value={volume} onChange={handleVolumeChange} />
             <Sounds selectedSound={sound} onChange={handleSoundChange} />
